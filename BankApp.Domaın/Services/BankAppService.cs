@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,8 +30,31 @@ namespace BankApp.Domaın.Services
             accounts.Add(account);
 
             return account;
+
+
+           
         }
 
-      
+        public bool LogIn(string email, string password)
+        {
+            foreach (var account in accounts)
+            {
+
+                if (account.Email == email && account.Password == password)
+                {
+                    Console.WriteLine("Logged in succesfull");
+                    return true;
+
+                }    
+                        
+            }
+
+            Console.WriteLine("Invalid email or password");
+
+            return false;
+          
+        }
+
+
     }
 }

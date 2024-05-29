@@ -25,15 +25,15 @@ bankAppService.SignUp( name, surname, identidyNumber, accountNumber,  email, pas
 
 
 
-
+    
 
     Console.Write("Enter email: ");
-    string email = Console.ReadLine();
+    string logInEmail = Console.ReadLine();
     Console.Write("Enter password: ");
-    string password = Console.ReadLine();
+    string logInPassword = Console.ReadLine();
 
     // BankAppService ile giriş işlemini gerçekleştir
-    bankAppService.LogIn(email, password);
+    bankAppService.LogIn(logInEmail ,logInPassword);
 
 
 
