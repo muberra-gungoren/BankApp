@@ -2,89 +2,135 @@
 using BankApp.Domain.Services;
 using System;
 
-namespace BankConsoleApp
+
+
+
+while (true)
 {
-    public class Program
+    if (ConsoleService.loggedInAccount == null)
     {
-        private static BankAppService bankAppService = new BankAppService();
+        Console.WriteLine("1. Sign Up");
+        Console.WriteLine("2. Log In");
+        Console.WriteLine("3. Exit");
+        Console.Write("Select an option: ");
+        string option = Console.ReadLine();
 
-        public static void Main(string[] args)
+        switch (option)
         {
-            while (true)
-            {
-                Console.WriteLine("1. Sign Up");
-                Console.WriteLine("2. Log In");
-                Console.WriteLine("3.Deposit");
-                Console.WriteLine("4.Withdraw");
-                Console.WriteLine("5.Transfer");
-                Console.WriteLine("6.Exit");
-                Console.Write("Select an option: ");
-                string option = Console.ReadLine();
+            case "1":
+                ConsoleService.SignUp();
+                break;
+            case "2":
+                ConsoleService.LogIn();
+                break;
+            case "3":
+                Environment.Exit(0);
+                break;
+            default:
+                Console.WriteLine("Invalid option. Please try again.");
+                break;
+        }
+    }
+    else
+    {
+        Console.WriteLine("1. Deposit");
+        Console.WriteLine("2. Withdraw");
+        Console.WriteLine("3. Transfer");
+        Console.WriteLine("4. Log Out");
+        Console.Write("Select an option: ");
+        string option = Console.ReadLine();
 
-                switch (option)
-                {
-                    case "1":
-                        Console.Write("Enter name: ");
-                        string name = Console.ReadLine();
-                        Console.Write("Enter surname: ");
-                        string surname = Console.ReadLine();
-                        Console.Write("Enter identity number: ");
-                        string identityNumber = Console.ReadLine();
-                        Console.Write("Enter account number: ");
-                        string accountNumber = Console.ReadLine();
-                        Console.Write("Enter email: ");
-                        string email = Console.ReadLine();
-                        Console.Write("Enter password: ");
-                        string password = Console.ReadLine();
-                        Console.Write("Enter phone number: ");
-                        string phoneNumber = Console.ReadLine();
-
-                        bankAppService.SignUp(name, surname, identityNumber, accountNumber, email, password, phoneNumber);
-
-                        break;
-
-                    case "2":
-                        Console.Write("Enter email: ");
-                        string logInEmail = Console.ReadLine();
-                        Console.Write("Enter password: ");
-                        string logInPassword = Console.ReadLine();
-
-                        bankAppService.LogIn(logInEmail, logInPassword);
-
-                        break;
-
-                    case "3":
-                        Console.Write("Enter deposit amount: ");
-                        decimal depositAmount = Convert.ToDecimal(Console.ReadLine());
-                        bankAppService.Deposit(depositAmount);
-                        break;
-                    case "4":
-                        Console.Write("Enter Withdraw amount: ");
-                        decimal withdrawAmount = Convert.ToDecimal(Console.ReadLine());
-                        bankAppService.Withdraw(withdrawAmount);
-
-                        break;
-
-                    case "5":
-                        Console.Write("Enter recipient Account Number: ");
-                        string recipientAccountNumber = Console.ReadLine();
-                        Console.Write("Enter Transfer amount: ");
-                        decimal amount = Convert.ToDecimal(Console.ReadLine());
-
-                        bankAppService.Transfer(recipientAccountNumber, amount);
-                        break;
-
-                    case "6":
-                        Environment.Exit(0);
-                        break;
-                }
-
-            }
-
+        switch (option)
+        {
+            case "1":
+                ConsoleService.Deposit();
+                break;
+            case "2":
+                ConsoleService.Withdraw();
+                break;
+            case "3":
+                ConsoleService.Transfer();
+                break;
+            case "4":
+                ConsoleService.LogOut();
+                break;
+            default:
+                Console.WriteLine("Invalid option. Please try again.");
+                break;
         }
     }
 }
-      
+        
 
+class ConsoleService
+{
+    private static BankAppService bankAppService = new BankAppService();
+    public static Account loggedInAccount = null;
 
+    public static void SignUp()
+    {
+        Console.Write("Enter name: ");
+        string name = Console.ReadLine();
+        Console.Write("Enter surname: ");
+        string surname = Console.ReadLine();
+        Console.Write("Enter identity number: ");
+        string identityNumber = Console.ReadLine();
+        Console.Write("Enter email: ");
+        string email = Console.ReadLine();
+        Console.Write("Enter password: ");
+        string password = Console.ReadLine();
+        Console.Write("Enter phone number: ");
+        string phoneNumber = Console.ReadLine();
 
+        bankAppService.SignUp(name, surname, identityNumber, email, password, phoneNumber);
+        Console.WriteLine("Account created successfully.");
+    }
+
+    public static void LogIn()
+    {
+        Console.Write("Enter email: ");
+        string email = Console.ReadLine();
+        Console.Write("Enter password: ");
+        string password = Console.ReadLine();
+
+        loggedInAccount = bankAppService.LogIn(email, password);
+        if (loggedInAccount != null)
+        {
+            Console.WriteLine("Logged in successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid email or password.");
+        }
+    }
+
+    public static void LogOut()
+    {
+        loggedInAccount = null;
+        Console.WriteLine("Logged out successfully.");
+    }
+
+    public static void Deposit()
+    {
+        Console.Write("Enter deposit amount: ");
+        decimal depositAmount = Convert.ToDecimal(Console.ReadLine());
+        bankAppService.Deposit(loggedInAccount, depositAmount);
+    }
+
+    public static void Withdraw()
+    {
+        Console.Write("Enter withdraw amount: ");
+        decimal withdrawAmount = Convert.ToDecimal(Console.ReadLine());
+        bankAppService.Withdraw(loggedInAccount, withdrawAmount);
+    }
+
+    public static void Transfer()
+    {
+        Console.Write("Enter recipient account number: ");
+        string recipientAccountNumber = Console.ReadLine();
+        Console.Write("Enter transfer amount: ");
+        decimal amount = Convert.ToDecimal(Console.ReadLine());
+
+        bankAppService.Transfer(loggedInAccount, recipientAccountNumber, amount);
+    }
+}

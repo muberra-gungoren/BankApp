@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\BankApp.Domaın\BankApp.Domaın.csproj" />
+    <ProjectReference Include="..\BankApp.Domaın\BankApp.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

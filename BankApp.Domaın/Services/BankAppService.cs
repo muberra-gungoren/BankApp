@@ -26,7 +26,7 @@ namespace BankApp.Domain.Services
             Console.WriteLine("Account created successfully!");
         }
 
-        public bool LogIn(string email, string password)
+        public Account LogIn(string email, string password)
         {
             // Check if the account exists with the given email and password
             foreach (Account account in accounts)
@@ -35,16 +35,16 @@ namespace BankApp.Domain.Services
                 {
                     loggedInAccount = account;
                     Console.WriteLine("Logged in successfully!");
-                    return true;
+                    return loggedInAccount;
                 }
             }
 
             // If no account is found
             Console.WriteLine("Invalid email or password.");
-            return false;
+            return null;
         }
 
-        public void Deposit(decimal amount)
+        public void Deposit(Account loggedInAccount, decimal amount)
         {
             if (loggedInAccount != null)
             {
@@ -56,7 +56,7 @@ namespace BankApp.Domain.Services
             }
         }
 
-        public void Withdraw(decimal amount)
+        public void Withdraw(Account loggedInAccount, decimal amount)
         {
             if (loggedInAccount != null)
             {
@@ -68,7 +68,7 @@ namespace BankApp.Domain.Services
             }
         }
 
-        public void Transfer(string recipientAccountNumber, decimal amount)
+        public void Transfer(Account loggedInAccount, string recipientAccountNumber, decimal amount)
         {
             // Kullanıcı girişi yapılmış mı kontrol et
             if (loggedInAccount == null)
@@ -108,6 +108,11 @@ namespace BankApp.Domain.Services
         public Account GetLoggedInAccount()
         {
             return loggedInAccount;
+        }
+
+        public void SignUp(string? name, string? surname, string? identityNumber, string? email, string? password, string? phoneNumber)
+        {
+            throw new NotImplementedException();
         }
     }
 }

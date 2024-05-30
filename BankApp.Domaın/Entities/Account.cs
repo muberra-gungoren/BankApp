@@ -17,7 +17,7 @@ namespace BankApp.Domain
 
         private static Random random = new Random();
 
-        public Account(string name, string surname, string identityNumber, string email, string password, string phoneNumber)
+        public Account(int v, string name, string surname, string identityNumber, string email, string password, string phoneNumber, string phoneNumber1)
         {
             Id = Guid.NewGuid();  // Guid tipinde Id oluşturma
             Name = name;
