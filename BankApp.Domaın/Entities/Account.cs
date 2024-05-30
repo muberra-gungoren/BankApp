@@ -4,7 +4,9 @@ namespace BankApp.Domain
 {
     public class Account
     {
-        public int Id { get; set; }
+        private int v;
+
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string IdentityNumber { get; set; }
@@ -14,7 +16,7 @@ namespace BankApp.Domain
         public decimal Balance { get; set; }
         public string PhoneNumber { get; set; }
 
-        public Account(int id, string name, string surname, string identityNumber, string accountNumber, string email, string password, string phoneNumber)
+        public Account(Guid id, string name, string surname, string identityNumber, string accountNumber, string email, string password, string phoneNumber)
         {
             Id = id;
             Name = name;
@@ -24,6 +26,18 @@ namespace BankApp.Domain
             Email = email;
             Password = password;
             Balance = 0; // Default balance is 0
+            PhoneNumber = phoneNumber;
+        }
+
+        public Account(int v, string name, string surname, string identityNumber, string accountNumber, string email, string password, string phoneNumber)
+        {
+            this.v = v;
+            Name = name;
+            Surname = surname;
+            IdentityNumber = identityNumber;
+            AccountNumber = accountNumber;
+            Email = email;
+            Password = password;
             PhoneNumber = phoneNumber;
         }
 

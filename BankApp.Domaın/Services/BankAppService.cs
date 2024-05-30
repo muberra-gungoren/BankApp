@@ -76,9 +76,17 @@ namespace BankApp.Domain.Services
                 Console.WriteLine("You need to log in first.");
                 return;
             }
-
             // Alıcı hesabını bul
-            Account recipientAccount = accounts.Find(acc => acc.AccountNumber == recipientAccountNumber);
+            Account recipientAccount = null;
+            foreach (var account in accounts)
+            {
+                if (account.AccountNumber == recipientAccountNumber)
+                {
+                    recipientAccount = account;
+                    break;
+                }
+            }
+
             if (recipientAccount == null)
             {
                 Console.WriteLine("Recipient account not found.");

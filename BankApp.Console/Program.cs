@@ -73,17 +73,17 @@ namespace BankConsoleApp
 
                         bankAppService.Transfer(recipientAccountNumber, amount);
                         break;
-                        
-                      case "6":
+
+                    case "6":
                         Environment.Exit(0);
                         break;
                 }
 
             }
 
-    }   
-   }
+        }
     }
+}
       
 
 
