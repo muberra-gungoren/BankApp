@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Linq;
 
 namespace BankApp.Domain
 {
     public class Account
     {
-        private int v;
-
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -16,29 +15,28 @@ namespace BankApp.Domain
         public decimal Balance { get; set; }
         public string PhoneNumber { get; set; }
 
-        public Account(Guid id, string name, string surname, string identityNumber, string accountNumber, string email, string password, string phoneNumber)
+        private static Random random = new Random();
+
+        public Account(string name, string surname, string identityNumber, string email, string password, string phoneNumber)
         {
-            Id = id;
+            Id = Guid.NewGuid();  // Guid tipinde Id oluşturma
             Name = name;
             Surname = surname;
             IdentityNumber = identityNumber;
-            AccountNumber = accountNumber;
+            AccountNumber = GenerateRandomAccountNumber();  // Rastgele hesap numarası oluşturma
             Email = email;
             Password = password;
-            Balance = 0; // Default balance is 0
+            Balance = 0; // Varsayılan bakiye 0
             PhoneNumber = phoneNumber;
         }
 
-        public Account(int v, string name, string surname, string identityNumber, string accountNumber, string email, string password, string phoneNumber)
+        // Rastgele bir hesap numarası oluşturma metodu
+        private string GenerateRandomAccountNumber()
         {
-            this.v = v;
-            Name = name;
-            Surname = surname;
-            IdentityNumber = identityNumber;
-            AccountNumber = accountNumber;
-            Email = email;
-            Password = password;
-            PhoneNumber = phoneNumber;
+            const int length = 10;
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         // Bakiye ekleme metodu
