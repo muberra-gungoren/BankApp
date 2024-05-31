@@ -10,7 +10,7 @@ namespace BankApp.Domain.Services
 
         public void SignUp(string name, string surname, string identityNumber, string email, string password, string phoneNumber)
         {
-            // Check if the email already exists
+            // E-posta adresinin zaten mevcut olup olmadığını kontrol eden bir işlev
             foreach (Account account in accounts)
             {
                 if (account.Email == email)

@@ -15,13 +15,14 @@ while (true)
         Console.Write("Select an option: ");
         string option = Console.ReadLine();
 
+        object bankAppService = null;
         switch (option)
         {
             case "1":
                 ConsoleService.SignUp();
                 break;
             case "2":
-                ConsoleService.LogIn();
+                ConsoleService.LogIn(BankAppService bankAppService);
                 break;
             case "3":
                 Environment.Exit(0);
@@ -60,7 +61,7 @@ while (true)
         }
     }
 }
-        
+
 
 class ConsoleService
 {
@@ -88,7 +89,7 @@ class ConsoleService
 
     }
 
-    public static void LogIn()
+    public static void LogIn(BankAppService bankAppService)
     {
         Console.Write("Enter email: ");
         string email = Console.ReadLine();
@@ -134,5 +135,10 @@ class ConsoleService
         decimal amount = Convert.ToDecimal(Console.ReadLine());
 
         bankAppService.Transfer(loggedInAccount, recipientAccountNumber, amount);
+    }
+
+    internal static void LogIn(object bankAppService)
+    {
+        throw new NotImplementedException();
     }
 }
