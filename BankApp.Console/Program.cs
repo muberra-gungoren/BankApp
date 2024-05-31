@@ -91,11 +91,26 @@ class ConsoleService
             }
         }
 
+        string phoneNumber;
+        while (true)
+        {
+            Console.Write("Enter phone number: ");
+            phoneNumber = Console.ReadLine();
+            if (phoneNumber.All(char.IsDigit))
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid phone number. Please enter digits only.");
+            }
+        }
+
 
         Console.Write("Enter password: ");
         string password = Console.ReadLine();
         Console.Write("Enter phone number: ");
-        string phoneNumber = Console.ReadLine();
+       
 
         string accountNumber = GenerateRandomAccountNumber();
 
