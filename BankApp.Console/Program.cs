@@ -66,6 +66,7 @@ class ConsoleService
     private static BankAppService bankAppService = new BankAppService();
     public static Account loggedInAccount = null;
 
+    // Yeni Hesap oluşturma
     public static void SignUp()
     {
         Console.Write("Enter name: ");
@@ -117,6 +118,7 @@ class ConsoleService
         bankAppService.SignUp(name, surname, identityNumber, email, password, phoneNumber);
     }
 
+    // Hesaba Giriş
     public static void LogIn()
     {
         Console.Write("Enter email: ");
@@ -135,12 +137,14 @@ class ConsoleService
         }
     }
 
+    // Çıkış Mesajının verilmesi
     public static void LogOut()
     {
         loggedInAccount = null;
         Console.WriteLine("Logged out successfully.");
     }
 
+    //Mevduat(depozito) İşlemleri
     public static void Deposit()
     {
         Console.Write("Enter deposit amount: ");
@@ -148,6 +152,7 @@ class ConsoleService
         bankAppService.Deposit(loggedInAccount, depositAmount);
     }
 
+    // Çekim İşlmleri
     public static void Withdraw()
     {
         Console.Write("Enter withdraw amount: ");
@@ -155,6 +160,7 @@ class ConsoleService
         bankAppService.Withdraw(loggedInAccount, withdrawAmount);
     }
 
+    // Transfer İşlemleri
     public static void Transfer()
     {
         Console.Write("Enter recipient account number: ");
@@ -182,6 +188,7 @@ class ConsoleService
     
 }
 
+    //Rastgele Hesap Numarası Oluşturma İşlemi
     private static string GenerateRandomAccountNumber()
     {
         Random random = new Random();
