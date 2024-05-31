@@ -20,14 +20,14 @@ namespace BankApp.Domain.Services
                 }
             }
 
-            // Add new account to the list
+            // Listeye yeni hesap ekle
             accounts.Add(new Account(name, surname, identityNumber, email, password, phoneNumber));
             Console.WriteLine("Account created successfully!");
         }
 
         public Account LogIn(string email, string password)
         {
-            // Check if the account exists with the given email and password
+            // Hesabın verilen e-posta ve şifreyle mevcut olup olmadığının kontrol edilmesi
             foreach (Account account in accounts)
             {
                 if (account.Email == email && account.Password == password)
@@ -38,11 +38,12 @@ namespace BankApp.Domain.Services
                 }
             }
 
-            // If no account is found
+            // Eğer Kullanıcı Hesabı Bulunmazsa Verilecek Mesaj
             Console.WriteLine("Invalid email or password.");
             return null;
         }
 
+        
         public void Deposit(Account loggedInAccount, decimal amount)
         {
             if (loggedInAccount != null)
@@ -109,9 +110,6 @@ namespace BankApp.Domain.Services
             return loggedInAccount;
         }
 
-        //public void SignUp(string? name, string? surname, string? identityNumber, string? email, string? password, string? phoneNumber)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        
     }
 }
