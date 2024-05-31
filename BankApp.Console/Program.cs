@@ -159,11 +159,28 @@ class ConsoleService
     {
         Console.Write("Enter recipient account number: ");
         string recipientAccountNumber = Console.ReadLine();
-        Console.Write("Enter transfer amount: ");
-        decimal amount = Convert.ToDecimal(Console.ReadLine());
+
+        decimal amount;
+        while (true)
+        {
+            Console.Write("Enter transfer amount: ");
+            string input = Console.ReadLine();
+
+            if (decimal.TryParse(input, out amount))
+            {
+                // Giriş geçerli bir decimal değerse döngüden çık
+                break;
+            }
+            else
+            {
+                // Giriş geçerli değilse hata mesajı ver ve yeniden giriş iste
+                Console.WriteLine("Invalid input. Please enter a valid numeric amount.");
+            }
+        }
 
         bankAppService.Transfer(loggedInAccount, recipientAccountNumber, amount);
-    }
+    
+}
 
     private static string GenerateRandomAccountNumber()
     {
