@@ -3,64 +3,62 @@ using BankApp.Domain.Services;
 using System;
 
 
-
-
-while (true)
-{
-    if (ConsoleService.loggedInAccount == null)
-    {
-        Console.WriteLine("1. Sign Up");
-        Console.WriteLine("2. Log In");
-        Console.WriteLine("3. Exit");
-        Console.Write("Select an option: ");
-        string option = Console.ReadLine();
-
-        object bankAppService = null;
-        switch (option)
+   
+        while (true)
         {
-            case "1":
-                ConsoleService.SignUp();
-                break;
-            case "2":
-                ConsoleService.LogIn(BankAppService bankAppService);
-                break;
-            case "3":
-                Environment.Exit(0);
-                break;
-            default:
-                Console.WriteLine("Invalid option. Please try again.");
-                break;
-        }
-    }
-    else
-    {
-        Console.WriteLine("1. Deposit");
-        Console.WriteLine("2. Withdraw");
-        Console.WriteLine("3. Transfer");
-        Console.WriteLine("4. Log Out");
-        Console.Write("Select an option: ");
-        string option = Console.ReadLine();
+            if (ConsoleService.loggedInAccount == null)
+            {
+                Console.WriteLine("1. Sign Up");
+                Console.WriteLine("2. Log In");
+                Console.WriteLine("3. Exit");
+                Console.Write("Select an option: ");
+                string option = Console.ReadLine();
 
-        switch (option)
-        {
-            case "1":
-                ConsoleService.Deposit();
-                break;
-            case "2":
-                ConsoleService.Withdraw();
-                break;
-            case "3":
-                ConsoleService.Transfer();
-                break;
-            case "4":
-                ConsoleService.LogOut();
-                break;
-            default:
-                Console.WriteLine("Invalid option. Please try again.");
-                break;
+                switch (option)
+                {
+                    case "1":
+                        ConsoleService.SignUp();
+                        break;
+                    case "2":
+                        ConsoleService.LogIn();
+                        break;
+                    case "3":
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("1. Deposit");
+                Console.WriteLine("2. Withdraw");
+                Console.WriteLine("3. Transfer");
+                Console.WriteLine("4. Log Out");
+                Console.Write("Select an option: ");
+                string option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "1":
+                        ConsoleService.Deposit();
+                        break;
+                    case "2":
+                        ConsoleService.Withdraw();
+                        break;
+                    case "3":
+                        ConsoleService.Transfer();
+                        break;
+                    case "4":
+                        ConsoleService.LogOut();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
+                }
+            }
         }
-    }
-}
 
 
 class ConsoleService
@@ -76,20 +74,35 @@ class ConsoleService
         string surname = Console.ReadLine();
         Console.Write("Enter identity number: ");
         string identityNumber = Console.ReadLine();
-        Console.Write("Enter email: ");
-        string email = Console.ReadLine();
+
+
+        string email;
+        while (true)
+        {
+            Console.Write("Enter email: ");
+            email = Console.ReadLine();
+            if (email.EndsWith("@gmail.com"))
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid email. Please use an email ending with @gmail.com.");
+            }
+        }
+
+
         Console.Write("Enter password: ");
         string password = Console.ReadLine();
         Console.Write("Enter phone number: ");
         string phoneNumber = Console.ReadLine();
 
+        string accountNumber = GenerateRandomAccountNumber();
+
         bankAppService.SignUp(name, surname, identityNumber, email, password, phoneNumber);
-
-        //Console.WriteLine("Account created successfully.");
-
     }
 
-    public static void LogIn(BankAppService bankAppService)
+    public static void LogIn()
     {
         Console.Write("Enter email: ");
         string email = Console.ReadLine();
@@ -137,8 +150,14 @@ class ConsoleService
         bankAppService.Transfer(loggedInAccount, recipientAccountNumber, amount);
     }
 
-    internal static void LogIn(object bankAppService)
+    private static string GenerateRandomAccountNumber()
     {
-        throw new NotImplementedException();
+        Random random = new Random();
+        string accountNumber = string.Empty;
+        for (int i = 0; i < 10; i++) // Generate a 10-digit account number
+        {
+            accountNumber += random.Next(0, 10).ToString();
+        }
+        return accountNumber;
     }
 }
