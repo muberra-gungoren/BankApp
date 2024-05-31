@@ -6,10 +6,9 @@ namespace BankApp.Domain.Services
     public class BankAppService
     {
         private List<Account> accounts = new List<Account>();
-        private int nextId = 1; // Unique ID generator
         private Account loggedInAccount = null; // Mevcut oturum açmış kullanıcıyı tutar
 
-        public void SignUp(string name, string surname, string identityNumber, string accountNumber, string email, string password, string phoneNumber)
+        public void SignUp(string name, string surname, string identityNumber, string email, string password, string phoneNumber)
         {
             // Check if the email already exists
             foreach (Account account in accounts)
@@ -22,7 +21,7 @@ namespace BankApp.Domain.Services
             }
 
             // Add new account to the list
-            accounts.Add(new Account(nextId++, name, surname, identityNumber, accountNumber, email, password, phoneNumber));
+            accounts.Add(new Account(name, surname, identityNumber, email, password, phoneNumber));
             Console.WriteLine("Account created successfully!");
         }
 
@@ -110,9 +109,9 @@ namespace BankApp.Domain.Services
             return loggedInAccount;
         }
 
-        public void SignUp(string? name, string? surname, string? identityNumber, string? email, string? password, string? phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
+        //public void SignUp(string? name, string? surname, string? identityNumber, string? email, string? password, string? phoneNumber)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -83,7 +83,9 @@ class ConsoleService
         string phoneNumber = Console.ReadLine();
 
         bankAppService.SignUp(name, surname, identityNumber, email, password, phoneNumber);
-        Console.WriteLine("Account created successfully.");
+
+        //Console.WriteLine("Account created successfully.");
+
     }
 
     public static void LogIn()
