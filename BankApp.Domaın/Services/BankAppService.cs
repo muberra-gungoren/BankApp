@@ -110,6 +110,28 @@ namespace BankApp.Domain.Services
             return loggedInAccount;
         }
 
+<<<<<<< Updated upstream
         
+=======
+        public Account CreateAccount(string? name, string? surname, string? email, string? password, string? phoneNumber, string? identityNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Account Login(string? email, string? password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DepositMoney(Account currentAccount, decimal amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool WithdrawMoney(Account currentAccount, decimal amount)
+        {
+            throw new NotImplementedException();
+        }
+>>>>>>> Stashed changes
     }
 }
